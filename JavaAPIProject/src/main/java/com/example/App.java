@@ -1,4 +1,6 @@
 package com.example;
+import java.awt.Color;
+
 import javax.swing.*;
 
 
@@ -14,7 +16,8 @@ public class App
         frame.addKeyListener(map);
 
         frame.setResizable(false);
-        frame.pack();
+        frame.setLocationRelativeTo(null);
+        frame.setBackground(Color.black);
         frame.setVisible(true);
     }
 
