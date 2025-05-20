@@ -49,6 +49,10 @@ public class Map extends JPanel implements ActionListener, KeyListener {
 
         // bottom wall
         g.drawRoundRect(40, 430, 700, 10, 10, 10);
+
+
+        // pathway
+        
     }
 
     @Override
