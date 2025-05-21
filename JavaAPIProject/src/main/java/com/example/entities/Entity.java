@@ -1,14 +1,35 @@
-package com.example.entities;
+package com.example.entities; 
 
-import javax.swing.JPanel;
+import java.awt.*;
 
-public class Sprite extends JPanel{
-    private double x;
-    private double y;
-    private 
+public class Entity {
+    protected int x, y;
+    protected int dx;
+    protected int dy;
 
-    public Sprite(double x, double y) {
+    public Entity(int x, int y) {
         this.x = x;
         this.y = y;
     }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void changeDirection(int dx, int dy) {
+        this.dx = dx;
+        this.dy = dy;
+    }
+
+    public void move() {
+        x += dx * 4;
+        y += dy * 4;
+    }
+
+    public void draw(Graphics g) {  }
+
 }

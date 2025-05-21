@@ -1,17 +1,17 @@
-package com.example;
+package com.example.ui;
 import java.awt.Color;
 
 import javax.swing.*;
 
 
-public class App 
+public class Game 
 {
     public static void initWindow() {
         JFrame frame = new JFrame();
         frame.setSize(800, 800);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        Map map = new Map();
+        GamePanel map = new GamePanel();
         frame.add(map);
         frame.addKeyListener(map);
 
