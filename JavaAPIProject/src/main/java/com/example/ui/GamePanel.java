@@ -58,16 +58,16 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
         g.drawRoundRect(620, 170, 60, 15, 20, 20);
 
         // t-bone 1
-        g.drawRoundRect(332, 200, 120, 18, 10, 10);
-        g.drawRoundRect(387, 200, 18, 95, 10, 10);
+        g.drawRoundRect(310, 170, 165, 18, 10, 10);
+        g.drawRoundRect(387, 170, 18, 110, 10, 10);
 
         // t-bone 2
-        g.drawRoundRect(260, 275, 60, 18, 10, 10);
-        g.drawRoundRect(242, 200, 18, 160, 10, 10);
+        g.drawRoundRect(238, 255, 80, 18, 10, 10);
+        g.drawRoundRect(220, 170, 18, 200, 10, 10);
 
         // t-bone 3
-        g.drawRoundRect(460, 275, 60, 18, 10, 10);
-        g.drawRoundRect(520, 200, 18, 160, 10, 10);
+        g.drawRoundRect(460, 255, 80, 18, 10, 10);
+        g.drawRoundRect(542, 170, 18, 200, 10, 10);
 
         // tubes
         g.drawRoundRect(620, 360, 120, 10, 10, 10);
@@ -75,6 +75,33 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
         // bottom wall
         g.drawRoundRect(40, 430, 700, 10, 10, 10);
+
+
+        // testing points for pathway
+        g.drawOval(70, 50, 10, 10);
+        g.drawOval(185, 50, 10, 10);
+        g.drawOval(350, 50, 10, 10);
+        g.drawOval(425, 50, 10, 10);
+        g.drawOval(585, 50, 10, 10);
+        g.drawOval(700, 50, 10, 10);
+
+        g.drawOval(70, 140, 10, 10);
+        g.drawOval(185, 140, 10, 10);
+        g.drawOval(270, 140, 10, 10);
+        g.drawOval(350, 140, 10, 10);
+        g.drawOval(425, 140, 10, 10);
+        g.drawOval(500, 140, 10, 10);
+        g.drawOval(585, 140, 10, 10);
+        g.drawOval(700, 140, 10, 10);
+
+        g.drawOval(70, 215, 10, 10);
+        g.drawOval(185, 215, 10, 10);
+        g.drawOval(270, 215, 10, 10);
+        g.drawOval(350, 215, 10, 10);
+        g.drawOval(425, 215, 10, 10);
+        g.drawOval(500, 215, 10, 10);
+        g.drawOval(585, 215, 10, 10);
+        g.drawOval(700, 215, 10, 10);
     }
 
     @Override
@@ -86,7 +113,21 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        // placeholder if you want directional movement later
+        switch (e.getKeyCode()) {
+            case KeyEvent.VK_A:
+                pacman.changeDirection(-1, 0);
+                break;
+            case KeyEvent.VK_W:
+                pacman.changeDirection(0, -1);
+                break;
+            case KeyEvent.VK_S:
+                pacman.changeDirection(0, 1);
+                break;
+            case KeyEvent.VK_D:
+                pacman.changeDirection(1, 0);
+            default:
+                break;
+        }
     }
 
     @Override
