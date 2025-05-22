@@ -15,7 +15,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
     public GamePanel() {
         pacman = new Pacman(100, 100);
-        ghost = new Ghost(600, 100);
+        ghost = new Ghost(375, 365);
 
         setBackground(Color.black);
     
@@ -73,6 +73,13 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
         g.drawRoundRect(620, 360, 120, 10, 10, 10);
         g.drawRoundRect(40, 360, 120, 10, 10, 10);
 
+        // ghost box
+        g.drawRoundRect(300, 330, 50, 10, 10, 10);
+        g.drawRoundRect(300, 340, 10, 90, 10, 10);
+
+        g.drawRoundRect(430, 330, 50, 10, 10, 10);
+        g.drawRoundRect(470, 340, 10, 90, 10, 10);
+
         // bottom wall
         g.drawRoundRect(40, 430, 700, 10, 10, 10);
 
@@ -102,6 +109,20 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
         g.drawOval(500, 215, 10, 10);
         g.drawOval(585, 215, 10, 10);
         g.drawOval(700, 215, 10, 10);
+
+
+        g.drawOval(270, 300, 10, 10);
+        g.drawOval(350, 300, 10, 10);
+        g.drawOval(425, 300, 10, 10);
+        g.drawOval(500, 300, 10, 10);
+
+        g.drawOval(70, 395, 10, 10);
+        g.drawOval(185, 395, 10, 10);
+        g.drawOval(270, 395, 10, 10);
+        g.drawOval(500, 395, 10, 10);
+        g.drawOval(585, 395, 10, 10);
+        g.drawOval(700, 395, 10, 10);
+
     }
 
     @Override
