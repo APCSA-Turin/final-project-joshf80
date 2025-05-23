@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Random;
 import javax.swing.*;
 
+import com.example.core.Core;
 import com.example.entities.Ghost;
 import com.example.entities.Pacman;
 
@@ -14,7 +15,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
     private Timer timer;
 
     public GamePanel() {
-        pacman = new Pacman(100, 100);
+        pacman = new Pacman(60,40);
         ghost = new Ghost(375, 365);
 
         setBackground(Color.black);
@@ -123,6 +124,76 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
         g.drawOval(585, 395, 10, 10);
         g.drawOval(700, 395, 10, 10);
 
+
+        Core c1 = new Core(60, 40);
+        Core c2 = new Core(175, 40);
+        Core c3 = new Core(340, 40);
+        Core c4 = new Core(415, 40);
+        Core c5 = new Core(575, 40);
+        Core c6 = new Core(690, 40);
+
+        Core c7 = new Core(60, 130);
+        Core c8 = new Core(175, 130);
+        Core c9 = new Core(260, 130);
+        Core c10 = new Core(340, 130);
+        Core c11 = new Core(415, 130);
+        Core c12 = new Core(490, 130);
+        Core c13= new Core(575, 130);
+        Core c14 = new Core(690, 130);
+
+        Core c15 = new Core(60, 205);
+        Core c16 = new Core(175, 205);
+        Core c17 = new Core(260, 205);
+        Core c18 = new Core(340, 205);
+        Core c19 = new Core(415, 205);
+        Core c20 = new Core(490, 205);
+        Core c21 = new Core(575, 205);
+        Core c22 = new Core(690, 205);
+
+        Core c23 = new Core(260, 290);
+        Core c24 = new Core(340, 290);
+        Core c25 = new Core(415, 290);
+        Core c26 = new Core(490, 290);
+
+        Core c27 = new Core(60, 385);
+        Core c28 = new Core(175, 385);
+        Core c29 = new Core(260, 385);
+        Core c30 = new Core(490, 385);
+        Core c31 = new Core(575, 385);
+        Core c32 = new Core(690, 385);
+
+
+        c1.addNeighbor(c2);
+        c1.addNeighbor(c7);
+        c2.addNeighbor(c3);
+        c2.addNeighbor(c8);
+        c3.addNeighbor(c10);
+        c4.addNeighbor(c11);
+        c4.addNeighbor(c5);
+        c5.addNeighbor(c13);
+        c5.addNeighbor(c6);
+        c6.addNeighbor(c14);
+        c7.addNeighbor(c15);
+        c7.addNeighbor(c8);
+        c8.addNeighbor(c9);
+        c8.addNeighbor(c16);
+        c9.addNeighbor(c17);
+        c9.addNeighbor(c10);
+        c10.addNeighbor(c11);
+        c11.addNeighbor(c12);
+        c12.addNeighbor(c20);
+        c12.addNeighbor(c13);
+        c13.addNeighbor(c21);
+        c13.addNeighbor(c14);
+        c14.addNeighbor(c22);
+        c15.addNeighbor(c16);
+        c16.addNeighbor(c28);
+        c17.addNeighbor(c18);
+        c18.addNeighbor(c24);
+        c19.addNeighbor(c25);
+        c19.addNeighbor(c20);
+        c21.addNeighbor(c31);
+        c21.addNeighbor(c22);
     }
 
     @Override

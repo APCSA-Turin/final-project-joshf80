@@ -18,4 +18,13 @@ public class Core {
             neighbor.addNeighbor(this);
         }
     }
+
+    public Boolean onCore(int x2, int y2) {
+        if (x2 > x - 10 && x2 < x + 10) {
+            if (y2 > y - 10 && y2 < y + 10) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
