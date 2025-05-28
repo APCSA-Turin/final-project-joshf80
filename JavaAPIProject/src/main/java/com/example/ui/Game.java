@@ -7,6 +7,7 @@ import javax.swing.*;
 public class Game 
 {
     public static void initWindow() {
+        // Initiate window
         JFrame frame = new JFrame();
         frame.setSize(800, 800);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

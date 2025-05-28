@@ -50,43 +50,45 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 
     public GamePanel() {
-        Core c1 = new Core(60, 40);
-        Core c2 = new Core(175, 40);
-        Core c3 = new Core(340, 40);
-        Core c4 = new Core(415, 40);
-        Core c5 = new Core(575, 40);
-        Core c6 = new Core(690, 40);
+        c1 = new Core(60, 40);
+        c2 = new Core(175, 40);
+        c3 = new Core(340, 40);
+        c4 = new Core(415, 40);
+        c5 = new Core(575, 40);
+        c6 = new Core(690, 40);
 
-        Core c7 = new Core(60, 130);
-        Core c8 = new Core(175, 130);
-        Core c9 = new Core(260, 130);
-        Core c10 = new Core(340, 130);
-        Core c11 = new Core(415, 130);
-        Core c12 = new Core(490, 130);
-        Core c13= new Core(575, 130);
-        Core c14 = new Core(690, 130);
+        c7 = new Core(60, 130);
+        c8 = new Core(175, 130);
+        c9 = new Core(260, 130);
+        c10 = new Core(340, 130);
+        c11 = new Core(415, 130);
+        c12 = new Core(490, 130);
+        c13= new Core(575, 130);
+        c14 = new Core(690, 130);
 
-        Core c15 = new Core(60, 205);
-        Core c16 = new Core(175, 205);
-        Core c17 = new Core(260, 205);
-        Core c18 = new Core(340, 205);
-        Core c19 = new Core(415, 205);
-        Core c20 = new Core(490, 205);
-        Core c21 = new Core(575, 205);
-        Core c22 = new Core(690, 205);
+        c15 = new Core(60, 205);
+        c16 = new Core(175, 205);
+        c17 = new Core(260, 205);
+        c18 = new Core(340, 205);
+        c19 = new Core(415, 205);
+        c20 = new Core(490, 205);
+        c21 = new Core(575, 205);
+        c22 = new Core(690, 205);
 
-        Core c23 = new Core(260, 290);
-        Core c24 = new Core(340, 290);
-        Core c25 = new Core(415, 290);
-        Core c26 = new Core(490, 290);
+        c23 = new Core(260, 290);
+        c24 = new Core(340, 290);
+        c25 = new Core(415, 290);
+        c26 = new Core(490, 290);
 
-        Core c27 = new Core(60, 385);
-        Core c28 = new Core(175, 385);
-        Core c29 = new Core(260, 385);
-        Core c30 = new Core(490, 385);
-        Core c31 = new Core(575, 385);
-        Core c32 = new Core(690, 385);
+        c27 = new Core(60, 385);
+        c28 = new Core(175, 385);
+        c29 = new Core(260, 385);
+        c30 = new Core(490, 385);
+        c31 = new Core(575, 385);
+        c32 = new Core(690, 385);
 
+
+        // Connecting all cores
         c1.addNeighbor(c2);
         c1.addNeighbor(c7);
         c2.addNeighbor(c3);
@@ -126,12 +128,14 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
         c27.addNeighbor(c28);
         c31.addNeighbor(c32);
 
+        // setup game objects
         pacman = new Pacman(60,40);
         pacman.setCurrent(c1);
         ghost = new Ghost(375, 365);
 
         setBackground(Color.black);
-    
+        
+        // frame rate
         timer = new Timer(20, this);
         timer.start();
     }
@@ -139,6 +143,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
     @Override
     protected void paintComponent(Graphics g) {
+        // draw all objects every tick
         super.paintComponent(g);
         drawMap(g);
         pacman.draw(g);
@@ -206,6 +211,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
+        // Handle user keystrokes
         switch (e.getKeyCode()) {
             case KeyEvent.VK_A:
                 //Check if user is currently on a core
@@ -230,7 +236,9 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
                 break;
         }
     }
+    
 
+    // nessecary methods
     @Override
     public void keyReleased(KeyEvent e) {}
 
