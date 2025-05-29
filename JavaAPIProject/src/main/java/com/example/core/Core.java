@@ -2,77 +2,65 @@ package com.example.core;
 
 import java.util.ArrayList;
 
-
 // Cores are used at intersection points to identify which possible moves entities could make
 public class Core {
-    private int x, y; // position of core
-    private ArrayList<Core> neighborCores; // holds which cores are available to each core.
+      private int x, y;
+    private ArrayList<Core> neighborCores;
+    private boolean isIntersection; // New: Marks if this is an intersection point
 
     public Core(int x, int y) {
         this.x = x;
         this.y = y;
         this.neighborCores = new ArrayList<Core>();
+        this.isIntersection = false;
     }
 
-    public int getX() { return x; }
+    // Call this after all neighbors are added
+    public void updateIntersectionStatus() {
+        isIntersection = neighborCores.size() > 2;
+    }
 
+    public boolean isIntersection() {
+        return isIntersection;
+    }
+
+
+    public int getX() { return x; }
     public int getY() { return y; }
 
     // Method used to connect the cores
     public void addNeighbor(Core neighbor) {
         if (!neighborCores.contains(neighbor)) {
             neighborCores.add(neighbor);
-            neighbor.addNeighbor(this); // <--> bidirectional connection to avoid excess code
+            neighbor.addNeighbor(this); // bidirectional connection
         }
     }
 
-    // returns which core is available at current entities core, given a direction
-    public Core checkDirection(int direction) {
-        for (Core core : neighborCores) {
-            if(direction == -1) /* left */ {
-                if (core.getY() == getY()) { 
-                    if (core.getX() < getX()) { // if neighbor core is to the left of current core
-                        return core;
-                    }
-                }
-            }
+    // Returns all connected cores
+    public ArrayList<Core> getNeighborCores() {
+        return neighborCores;
+    }
 
-            if(direction == 0) /* up */ {
-                if (core.getX() == getX()) {
-                    if (core.getY() > getY()) { // if neighbor core is over the current core
-                        return core;
-                    }
-                }
-            }
-
-            if(direction == 1) /* right */ {
-                if (core.getY() == getY()) {
-                    if (core.getX() > getX()) { // if neighbor core is to the right of current core
-                        return core;
-                    }
-                }
-            }
-
-            
-            if(direction == 2) /* down */ {
-                if (core.getX() == getX()) {
-                    if (core.getY() > getY()) { // if neighbor core is below the current core
-                        return core;
-                    }
-                }
-            }
+    // Returns which core is available in given direction (-1=left, 0=up, 1=right, 2=down)
+    public Core getCoreInDirection(int dx, int dy) {
+        for (Core neighbor : neighborCores) {
+            if (dx == -1 && neighbor.getX() < getX() && neighbor.getY() == getY()) return neighbor;
+            if (dx == 1 && neighbor.getX() > getX() && neighbor.getY() == getY()) return neighbor;
+            if (dy == -1 && neighbor.getY() < getY() && neighbor.getX() == getX()) return neighbor;
+            if (dy == 1 && neighbor.getY() > getY() && neighbor.getX() == getX()) return neighbor;
         }
-
         return null;
     }
 
-    public Boolean onCore(int x2, int y2) {
-        // Check if given coordinates are within the space of the core (allows for less precise key movement)
-        if (x2 > x - 10 && x2 < x + 10) {
-            if (y2 > y - 10 && y2 < y + 10) {
-                return true;
-            }
-        }
-        return false;
+    // More precise position checking
+    public boolean isOnCore(int x, int y) {
+        int threshold = 5; // Tighter threshold for snapping
+        return x > this.x - threshold && x < this.x + threshold &&
+               y > this.y - threshold && y < this.y + threshold;
     }
-}
+
+    // Simple distance calculation between cores
+    public double distanceTo(Core other) {
+        return Math.sqrt(Math.pow(x - other.x, 2) + Math.pow(y - other.y, 2));
+    }
+}   
