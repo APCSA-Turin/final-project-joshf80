@@ -16,13 +16,13 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
     private int highScore = 0;
     private boolean gameRunning = true;
 
-    // All the core declarations (unchanged from your original)
+    // All the core declarations
     private Core c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13, c14;
     private Core c15, c16, c17, c18, c19, c20, c21, c22, c23, c24, c25, c26;
     private Core c27, c28, c29, c30, c31, c32;
 
     public GamePanel() {
-        // Initialize all cores (unchanged from your original)
+        // Initialize all cores
         c1 = new Core(60, 40);
         c2 = new Core(175, 40);
         c3 = new Core(340, 40);
@@ -60,7 +60,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
         c31 = new Core(575, 385);
         c32 = new Core(690, 385);
 
-        // Connect all cores (unchanged from your original)
+        // Connect all cores 
         c1.addNeighbor(c2);
         c1.addNeighbor(c7);
         c2.addNeighbor(c3);
@@ -98,6 +98,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
         c25.addNeighbor(c26);
         c26.addNeighbor(c30);
         c27.addNeighbor(c28);
+        c28.addNeighbor(c29);
+        c30.addNeighbor(c31);
         c31.addNeighbor(c32);
 
         // Try to load high score from file
@@ -138,7 +140,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
     private void resetGame() {
         pacman = new Pacman(60, 40);
         pacman.setCurrent(c1);
-        ghost = new Ghost(375, 365);
+        ghost = new Ghost(415, 205);
         ghost.setCurrent(c19);
         gameRunning = true;
     }
@@ -154,23 +156,23 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
         
         // Draw score info
         g.setColor(Color.WHITE);
-        g.drawString("Score: " + pacman.getScore(), 20, 20);
-        g.drawString("High Score: " + highScore, 650, 20);
+        g.drawString("Score: " + pacman.getScore(), 20, 15);
+        g.drawString("High Score: " + highScore, 650, 15);
         
         // Game over message
         if (!gameRunning) {
             g.setColor(Color.RED);
-            g.setFont(new Font("Arial", Font.BOLD, 30));
+            // Times New Roman looks cooler
+            g.setFont(new Font("Times New Roman", Font.BOLD, 30));
             g.drawString("GAME OVER", 300, 200);
-            g.setFont(new Font("Arial", Font.PLAIN, 20));
+            g.setFont(new Font("Times New Roman", Font.PLAIN, 20));
             g.drawString("Press any key to restart", 300, 250);
         }
     }
 
-    // Your original drawMap method unchanged
     private void drawMap(Graphics g) {
         g.setColor(Color.BLUE);
-        // walls top -> bottom
+        // walls (top -> bottom)
         g.drawRoundRect(40, 20, 10, 235, 10, 10);
         g.drawRoundRect(40, 20, 700, 10, 10, 10);
         g.drawRoundRect(730, 20, 10, 235, 10, 10);
@@ -238,9 +240,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
         repaint();
     }
 
-    // In GamePanel.java, replace keyPressed with:
-@Override
-public void keyPressed(KeyEvent e) {
+    @Override
+    public void keyPressed(KeyEvent e) {
     if (!gameRunning) {
         resetGame();
         return;

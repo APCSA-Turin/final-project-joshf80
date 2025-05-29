@@ -2,7 +2,7 @@ package com.example.core;
 
 import java.util.ArrayList;
 
-// Manages all cores and provides pathfinding functions
+// Manages all cores and pathfinding functions
 public class CoreMap {
     private ArrayList<Core> allCores;
 
@@ -19,15 +19,7 @@ public class CoreMap {
     // Finds nearest core to given coordinates
     public Core findNearestCore(int x, int y) {
         Core nearest = null;
-        double minDistance = Double.MAX_VALUE;
-        
-        for (Core core : allCores) {
-            double dist = Math.sqrt(Math.pow(x - core.getX(), 2) + Math.pow(y - core.getY(), 2));
-            if (dist < minDistance) {
-                minDistance = dist;
-                nearest = core;
-            }
-        }
+
         return nearest;
     }
 
@@ -42,18 +34,11 @@ public class CoreMap {
         return path;
     }
 
-    // Simple chase algorithm - picks direction that gets ghost closer to target
+    // chase algorithm
     public Core getNextCoreToward(Core current, Core target) {
         Core bestCore = null;
-        double minDistance = Double.MAX_VALUE;
         
-        for (Core neighbor : current.getNeighborCores()) {
-            double dist = neighbor.distanceTo(target);
-            if (dist < minDistance) {
-                minDistance = dist;
-                bestCore = neighbor;
-            }
-        }
+        
         return bestCore;
     }
 }

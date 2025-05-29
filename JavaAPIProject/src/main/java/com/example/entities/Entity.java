@@ -6,7 +6,7 @@ public class Entity {
     protected int x, y;
     protected int dx;
     protected int dy;
-    protected int score; // Added score tracking
+    protected int score; // score tracking
 
     public Entity(int x, int y) {
         this.x = x;
@@ -34,7 +34,6 @@ public class Entity {
     public void move() {
         x += dx * 4;
         y += dy * 4;
-        score++; // Increment score each move
     }
 
     public void draw(Graphics g) {  }
