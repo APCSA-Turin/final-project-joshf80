@@ -54,7 +54,7 @@ public class Core {
 
     // position checking for when moving is possible
     public boolean isOnCore(int x, int y) {
-        int threshold = 3; // snapping threshold
+        int threshold = 3; // snapping threshold (so user keystrokes dont have to be so precise)
         return x > this.x - threshold && x < this.x + threshold &&
                y > this.y - threshold && y < this.y + threshold;
     }
