@@ -2,6 +2,8 @@ package com.example.core;
 
 import java.util.ArrayList;
 
+import com.example.ui.Game;
+
 // Cores are used at intersection points to identify which possible moves entities could make
 public class Core {
       private int x, y;
@@ -15,7 +17,7 @@ public class Core {
         this.isIntersection = false;
     }
 
-    // Called after all neighbors are added
+    // Called after all cores are added
     public void updateIntersectionStatus() {
         isIntersection = neighborCores.size() > 2;
     }
@@ -43,11 +45,21 @@ public class Core {
 
     // Returns which core is available in given direction (-1 = left / down | 1 = right / up)
     public Core getCoreInDirection(int dx, int dy) {
+
         for (Core neighbor : neighborCores) {
-            if (dx == -1 && neighbor.getX() < getX() && neighbor.getY() == getY()) return neighbor;
-            if (dx == 1 && neighbor.getX() > getX() && neighbor.getY() == getY()) return neighbor;
-            if (dy == -1 && neighbor.getY() < getY() && neighbor.getX() == getX()) return neighbor;
-            if (dy == 1 && neighbor.getY() > getY() && neighbor.getX() == getX()) return neighbor;
+
+            if (dx == -1 && neighbor.getX() < x && neighbor.getY() == y) {
+                return neighbor;
+            }
+            if (dx == 1 && neighbor.getX() > x && neighbor.getY() == y) {
+                return neighbor;
+            }
+            if (dy == -1 && neighbor.getY() < y && neighbor.getX() == x) {
+                return neighbor;
+            }
+            if (dy == 1 && neighbor.getY() > y && neighbor.getX() == x) {
+                return neighbor;
+            }
         }
         return null;
     }
@@ -57,10 +69,5 @@ public class Core {
         int threshold = 3; // snapping threshold (so user keystrokes dont have to be so precise)
         return x > this.x - threshold && x < this.x + threshold &&
                y > this.y - threshold && y < this.y + threshold;
-    }
-
-    // distance calculation between cores
-    public double distanceTo(Core other) {
-        return Math.sqrt(Math.pow(x - other.x, 2) + Math.pow(y - other.y, 2));
     }
 }   

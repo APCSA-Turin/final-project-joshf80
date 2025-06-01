@@ -6,15 +6,18 @@ import javax.swing.*;
 import java.io.*; // For file operations
 
 import com.example.core.Core;
+import com.example.core.CoreMap;
 import com.example.entities.Ghost;
 import com.example.entities.Pacman;
 
 public class GamePanel extends JPanel implements ActionListener, KeyListener {
     private Pacman pacman;
     private Ghost ghost;
+    private Ghost ghost2;
     private Timer timer;
     private int highScore = 0;
     private boolean gameRunning = true;
+    private CoreMap gameMap = new CoreMap();
 
     // All the core declarations
     private Core c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13, c14;
@@ -53,12 +56,48 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
         c25 = new Core(415, 290);
         c26 = new Core(490, 290);
 
-        c27 = new Core(60, 385);
+        c27 = new Core(-40, 385);
         c28 = new Core(175, 385);
         c29 = new Core(260, 385);
         c30 = new Core(490, 385);
         c31 = new Core(575, 385);
-        c32 = new Core(690, 385);
+        c32 = new Core(800, 385);
+
+        gameMap.addCore(c1);
+        // Add cores to the game map
+        gameMap.addCore(c1);
+        gameMap.addCore(c2);
+        gameMap.addCore(c3);
+        gameMap.addCore(c4);
+        gameMap.addCore(c5);
+        gameMap.addCore(c6);
+        gameMap.addCore(c7);
+        gameMap.addCore(c8);
+        gameMap.addCore(c9);
+        gameMap.addCore(c10);
+        gameMap.addCore(c11);
+        gameMap.addCore(c12);
+        gameMap.addCore(c13);
+        gameMap.addCore(c14);
+        gameMap.addCore(c15);
+        gameMap.addCore(c16);
+        gameMap.addCore(c17);
+        gameMap.addCore(c18);
+        gameMap.addCore(c19);
+        gameMap.addCore(c20);
+        gameMap.addCore(c21);
+        gameMap.addCore(c22);
+        gameMap.addCore(c23);
+        gameMap.addCore(c24);
+        gameMap.addCore(c25);
+        gameMap.addCore(c26);
+        gameMap.addCore(c27);
+        gameMap.addCore(c28);
+        gameMap.addCore(c29);
+        gameMap.addCore(c30);
+        gameMap.addCore(c31);
+        gameMap.addCore(c32);
+
 
         // Connect all cores 
         c1.addNeighbor(c2);
@@ -101,6 +140,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
         c28.addNeighbor(c29);
         c30.addNeighbor(c31);
         c31.addNeighbor(c32);
+        c32.addNeighbor(c27);
 
         // Try to load high score from file
         loadHighScore();
@@ -140,8 +180,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
     private void resetGame() {
         pacman = new Pacman(60, 40);
         pacman.setCurrent(c1);
-        ghost = new Ghost(415, 205);
-        ghost.setCurrent(c19);
+        ghost = new Ghost(c19, gameMap, pacman);
+        ghost2 = new Ghost(c16, gameMap, pacman);
         gameRunning = true;
     }
 
@@ -211,14 +251,14 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
         g.drawRoundRect(40, 360, 120, 10, 10, 10);
 
         // ghost box
-        g.drawRoundRect(300, 330, 50, 10, 10, 10);
+        g.drawRoundRect(300, 330, 180, 10, 10, 10);
         g.drawRoundRect(300, 340, 10, 90, 10, 10);
 
-        g.drawRoundRect(430, 330, 50, 10, 10, 10);
         g.drawRoundRect(470, 340, 10, 90, 10, 10);
 
         // bottom wall
-        g.drawRoundRect(40, 430, 700, 10, 10, 10);
+        g.drawRoundRect(40, 430, 270, 10, 10, 10);
+        g.drawRoundRect(470, 430, 270, 10, 10, 10);
     }
 
     @Override
