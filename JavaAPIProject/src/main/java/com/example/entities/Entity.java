@@ -30,11 +30,6 @@ public class Entity {
         return score;
     }
 
-    // handles directional changes
-    public void changeDirection(int dx, int dy) {
-        this.dx = dx;
-        this.dy = dy;
-    }
 
     public void move() {
         x += dx * 4;

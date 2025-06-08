@@ -20,26 +20,11 @@ public class CoreMap {
         }
     }
 
-    // Finds nearest core to given coordinates
-    public Core findNearestCore(int x, int y) {
-        Core nearest = null;
-        double minDistance = Double.MAX_VALUE; // since we are looking for lesser values
-
-        for (Core core : allCores) {
-            double distance = Math.sqrt(Math.pow(x - core.getX(), 2) + Math.pow(y - core.getY(), 2));
-            if (distance < minDistance) {
-                minDistance = distance;
-                nearest = core;
-            }
-        }
-        return nearest;
-    }
-
-    // Basic pathfinding - will be used by ghosts
+    // BFS pathfinding - will be used by ghosts
     public ArrayList<Core> findPath(Core start, Core target) {
         Queue<Core> queue = new LinkedList<>();
         HashMap<Core, Core> cameFrom = new HashMap<>();
-        HashSet<Core> visited = new HashSet<>();
+        HashSet<Core> visited = new HashSet<>(); // hash solves effeciency issue
 
         queue.add(start);
         visited.add(start);
@@ -60,7 +45,7 @@ public class CoreMap {
             }
         }
 
-        // Reconstruct path
+        // Trace path
         ArrayList<Core> path = new ArrayList<>();
         Core current = target;
 

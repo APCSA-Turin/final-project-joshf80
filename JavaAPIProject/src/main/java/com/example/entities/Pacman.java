@@ -1,8 +1,10 @@
 package com.example.entities;
 
 import java.awt.*;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+
 import com.example.core.Core;
-import com.example.ui.*;;
 
 // Pacman entity logic and movement
 public class Pacman extends Entity {
@@ -41,8 +43,7 @@ public class Pacman extends Entity {
             if (targetCore.isOnCore(x, y)) {
                 x = targetCore.getX();
                 y = targetCore.getY();
-                currentCore = targetCore;
-                targetCore = null;
+                currentCore = targetCore; // avoid weird movement
                 score++;
             }
         }
@@ -50,7 +51,28 @@ public class Pacman extends Entity {
 
     // Called when user changes direction
     public void requestDirectionChange(int dx, int dy) {
+
         if (currentCore == null) return;
+
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter("moves.txt", true));
+            if (dx == 0 && dy == 1) {
+                writer.write("down");
+            }
+            else if (dx == 1 && dy == 0) {
+                writer.write("right");
+            }
+            else if (dx == 0 && dy == -1) {
+                writer.write("up");
+            }
+            else if (dx == -1 && dy == 0) {
+                writer.write("left");
+            }
+            writer.newLine();
+            writer.close();
+        } catch (Exception e) {
+            System.out.println("Error saving high score: " + e.getMessage());
+        }
 
 
         Core next = currentCore.getCoreInDirection(dx, dy);

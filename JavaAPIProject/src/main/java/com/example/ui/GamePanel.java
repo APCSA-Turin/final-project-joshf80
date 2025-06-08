@@ -1,25 +1,27 @@
 package com.example.ui;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.Random;
 import javax.swing.*;
-import java.io.*; // For file operations
+import java.io.*; // For writing / reading
+import java.util.ArrayList;
 
+import com.example.prediction.*;
 import com.example.core.Core;
 import com.example.core.CoreMap;
 import com.example.entities.Ghost;
 import com.example.entities.Pacman;
+import com.example.prediction.MovePredictor;
 
 public class GamePanel extends JPanel implements ActionListener, KeyListener {
     private Pacman pacman;
     private Ghost ghost;
-    private Ghost ghost2;
+    // private Ghost ghost2;
     private Timer timer;
     private int highScore = 0;
     private boolean gameRunning = true;
     private CoreMap gameMap = new CoreMap();
 
-    // All the core declarations
+    // All core declarations
     private Core c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13, c14;
     private Core c15, c16, c17, c18, c19, c20, c21, c22, c23, c24, c25, c26;
     private Core c27, c28, c29, c30, c31, c32;
@@ -63,7 +65,6 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
         c31 = new Core(575, 385);
         c32 = new Core(800, 385);
 
-        gameMap.addCore(c1);
         // Add cores to the game map
         gameMap.addCore(c1);
         gameMap.addCore(c2);
@@ -167,6 +168,35 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
         }
     }
 
+    private ArrayList<String> getLastMoves(int count) {
+        ArrayList<String> moves = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader("moves.txt"))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                if (!line.trim().isEmpty()) {
+                    moves.add(line.trim());
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Could not read moves.txt: " + e.getMessage());
+        }
+        // Return the last specified number of` moves
+        int from = Math.max(moves.size() - count, 0);
+        return new ArrayList<>(moves.subList(from, moves.size()));
+    }
+
+    private String getPredictedMove() {
+        MovePredictor predictor = new MovePredictor();
+        try {
+            predictor.trainFromFile("moves.txt");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return predictor.predictNextMove();
+    }
+
+
+    // Saves new high score to file
     private void saveHighScore() {
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter("highscore.txt"));
@@ -177,11 +207,12 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
         }
     }
 
+    // used for deaths
     private void resetGame() {
         pacman = new Pacman(60, 40);
         pacman.setCurrent(c1);
         ghost = new Ghost(c19, gameMap, pacman);
-        ghost2 = new Ghost(c16, gameMap, pacman);
+        // ghost2 = new Ghost(c16, gameMap, pacman);
         gameRunning = true;
     }
 
@@ -198,6 +229,25 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
         g.setColor(Color.WHITE);
         g.drawString("Score: " + pacman.getScore(), 20, 15);
         g.drawString("High Score: " + highScore, 650, 15);
+
+        g.setFont(new Font("Monospaced", Font.PLAIN, 14));
+        g.setColor(Color.WHITE);
+
+        ArrayList<String> lastMoves = getLastMoves(10);
+        int xLeft = 10;
+        int yStart = getHeight() - 220;
+        g.drawString("Recent Moves:", xLeft, yStart);
+        for (int i = 0; i < lastMoves.size(); i++) {
+            g.drawString(lastMoves.get(i), xLeft, yStart + 20 * (i + 1));
+        }
+
+        // Display predicted next move
+        String predicted = getPredictedMove();
+        String predictionText = "Prediction: " + predicted;
+        int textWidth = g.getFontMetrics().stringWidth(predictionText);
+        int xRight = getWidth() - textWidth - 10;
+        int yBottom = getHeight() - 20;
+        g.drawString(predictionText, xRight, yBottom);
         
         // Game over message
         if (!gameRunning) {
@@ -259,6 +309,46 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
         // bottom wall
         g.drawRoundRect(40, 430, 270, 10, 10, 10);
         g.drawRoundRect(470, 430, 270, 10, 10, 10);
+
+        // testing points for pathway
+        g.drawOval(70, 50, 10, 10);
+        g.drawOval(185, 50, 10, 10);
+        g.drawOval(350, 50, 10, 10);
+        g.drawOval(425, 50, 10, 10);
+        g.drawOval(585, 50, 10, 10);
+        g.drawOval(700, 50, 10, 10);
+
+        g.drawOval(70, 140, 10, 10);
+        g.drawOval(185, 140, 10, 10);
+        g.drawOval(270, 140, 10, 10);
+        g.drawOval(350, 140, 10, 10);
+        g.drawOval(425, 140, 10, 10);
+        g.drawOval(500, 140, 10, 10);
+        g.drawOval(585, 140, 10, 10);
+        g.drawOval(700, 140, 10, 10);
+
+        g.drawOval(70, 215, 10, 10);
+        g.drawOval(185, 215, 10, 10);
+        g.drawOval(270, 215, 10, 10);
+        g.drawOval(350, 215, 10, 10);
+        g.drawOval(425, 215, 10, 10);
+        g.drawOval(500, 215, 10, 10);
+        g.drawOval(585, 215, 10, 10);
+        g.drawOval(700, 215, 10, 10);
+
+
+        g.drawOval(270, 300, 10, 10);
+        g.drawOval(350, 300, 10, 10);
+        g.drawOval(425, 300, 10, 10);
+        g.drawOval(500, 300, 10, 10);
+
+        g.drawOval(70, 395, 10, 10);
+        g.drawOval(185, 395, 10, 10);
+        g.drawOval(270, 395, 10, 10);
+        g.drawOval(500, 395, 10, 10);
+        g.drawOval(585, 395, 10, 10);
+        g.drawOval(700, 395, 10, 10);
+
     }
 
     @Override

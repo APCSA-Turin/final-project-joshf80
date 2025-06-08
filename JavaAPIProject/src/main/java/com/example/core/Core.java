@@ -2,28 +2,15 @@ package com.example.core;
 
 import java.util.ArrayList;
 
-import com.example.ui.Game;
-
 // Cores are used at intersection points to identify which possible moves entities could make
 public class Core {
       private int x, y;
     private ArrayList<Core> neighborCores;
-    private boolean isIntersection;
 
     public Core(int x, int y) {
         this.x = x;
         this.y = y;
         this.neighborCores = new ArrayList<Core>();
-        this.isIntersection = false;
-    }
-
-    // Called after all cores are added
-    public void updateIntersectionStatus() {
-        isIntersection = neighborCores.size() > 2;
-    }
-
-    public boolean isIntersection() {
-        return isIntersection;
     }
 
 

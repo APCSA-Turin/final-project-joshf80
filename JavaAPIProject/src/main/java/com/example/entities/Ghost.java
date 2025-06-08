@@ -44,8 +44,8 @@ public class Ghost extends Entity {
         // Movement toward next core
         if (targetCore != null) {
             // set ghost direction to face next core
-            int dx = Integer.compare(targetCore.getX(), x);
-            int dy = Integer.compare(targetCore.getY(), y);
+            int dx = Integer.compare(targetCore.getX(), x); // direction on x plane
+            int dy = Integer.compare(targetCore.getY(), y); // direction on yplane
 
             // 4 pixels per tick in direction of core
             x += dx * 4;
